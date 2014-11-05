@@ -6,7 +6,7 @@ Git hook to convert your TODOs into Github issues
 
 The tool is a work in progress, pushed here more for backup purpose than publishing. Please clone or fork only if you intend to contribute.
 
-## Goal
+## Mid-term goal
 
 ```sh
 # Install git hook
@@ -35,3 +35,10 @@ $ git commit -m "Added some TODOs"
 $ head -n 15 lib/app.js | tail -n 1
 // TODO #42 do not use this deprecated method
 ```
+
+## Roadmap
+
+1. Minimum viable product: create or comment issue when a line containing "TODO …" is added to commited file
+2. Guess github user & repository from remote origin
+3. Implement option "inject-issue"
+4. (maybe?) close issue when a line containing "TODO #…" is removed from commited file
