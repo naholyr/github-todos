@@ -1,0 +1,4 @@
+THIS COMMAND IS "PRIVATE" AND SHOULD NOT BE CALLED DIRECTLY
+It should be called only by git as post-commit hook
+
+Usage: $0 _hook [options]

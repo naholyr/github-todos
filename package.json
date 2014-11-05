@@ -1,0 +1,35 @@
+{
+  "name": "github-todos",
+  "version": "1.0.0",
+  "description": "Git hook to convert your TODOs into Github issues",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naholyr/github-todos.git"
+  },
+  "bin": {
+    "github-todos": "bin/github-todos",
+    "ght": "bin/github-todos"
+  },
+  "author": "Nicolas Chambrier <naholyr@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/naholyr/github-todos/issues"
+  },
+  "homepage": "https://github.com/naholyr/github-todos",
+  "keywords": [
+    "git",
+    "github",
+    "issues",
+    "todo",
+    "hook"
+  ],
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "mustache": "^0.8.2",
+    "optimist": "^0.6.1"
+  }
+}

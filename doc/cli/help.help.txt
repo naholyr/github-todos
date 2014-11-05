@@ -1,0 +1,4 @@
+Show command's usage.
+This help can also be triggered with "--help" option.
+
+Usage: $0 help [command]

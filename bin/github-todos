@@ -1,0 +1,73 @@
+#!/usr/bin/env node
+
+var help = require('../lib/help');
+
+var optimist = require('optimist');
+var processArgv = process.argv.slice(2);
+
+// We need to regenerate
+function getOpts (processArgv) {
+  return optimist(processArgv)
+    .usage(help())
+    .boolean('h')
+    .describe('h', 'Show help')
+    .alias('h', 'help');
+}
+
+var opts = getOpts(processArgv);
+var argv = opts.argv;
+
+// Convert options "--help" and "-h" into command "help"
+if (argv.help) {
+  // Remove "--help" and "-h" from args
+  var longIndex = processArgv.indexOf("--help");
+  if (longIndex !== -1) {
+    processArgv.splice(longIndex, 1);
+  }
+  var shortIndex = processArgv.indexOf("-h");
+  if (shortIndex !== -1) {
+    processArgv.splice(shortIndex, 1);
+  }
+  // Replace `$0 …` by `$0 help …`
+  processArgv.unshift("help");
+  // Regenerate opts from newly forged process.argv
+  opts = getOpts(processArgv);
+  argv = opts.argv;
+}
+
+var commandName = argv._[0];
+
+// Demand command name
+if (!commandName) {
+  console.error("No command specified");
+  opts.showHelp();
+  process.exit(127);
+}
+
+// Load command module
+var command;
+try {
+  command = require('../lib/cli/' + commandName);
+} catch (e) {
+  command = null;
+}
+
+// Demand valid command
+if (!command) {
+  console.error("Unknown command: " + commandName);
+  opts.showHelp();
+  process.exit(127);
+}
+
+// Configure opts and run command
+require("domain").create()
+.on("error", function (e) {
+  console.error(e.message);
+  process.exit(1);
+})
+.run(function () {
+  if (command.config) {
+    opts = command.config(opts);
+  }
+  command.run(opts.argv, opts);
+});
