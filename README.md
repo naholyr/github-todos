@@ -25,9 +25,9 @@ All that follows may be highly arguable and I expect comments to make the right 
   1. `git stash save --include-untracked` if workspace is dirty
   2. modify source files: `TODO …` → `TODO #X …`
   3. `git add .`
-  4. `git commit -m "[Github-Todos] Inject issue numbers"` (*)
+  4. `git commit -m "[Github-Todos] Inject issue numbers"` (1)
   5. `git stash pop --index` if stashed on step 1
-  6. Ready to let the push go (*)
+  6. Ready to let the push go (1)
 * **Configuration option** should allow to:
   * Define target github repository (`user`, `repo`, default taken from remote "origin")
   * Enable/disable issue injection (`inject-issue`, should be disabled by default?)
@@ -37,15 +37,15 @@ All that follows may be highly arguable and I expect comments to make the right 
   * Be more or less verbose (`verbose`, enabled by default)
   * Maybe enable interactive mode where the tool would ask confirmation for every TODO before touching online issues (`interactive`, disabled by default?)
 
-(*) Note that you [can't add a commit to a push in a hook](http://stackoverflow.com/a/21334985), we must choose an option:
+(1) Note that you [can't add a commit to a push in a hook](http://stackoverflow.com/a/21334985), we must choose an option:
 
 * let push continue, let user with an unpushed extra commit: not very nice but easy, works, and the user can choose what to do with this extra commit (amend it, remove it, whatever), it will have no more side-effect
-* break push, let user push the whole lot + extra commit: even more user-unfriendly in my opinion, and we'll have to handle the "push again" logic (**)
+* break push, let user push the whole lot + extra commit: even more user-unfriendly in my opinion, and we'll have to handle the "push again" logic (2)
 * push within the hook (prevent circular execution)
 
 First and last solutions seem the best in our case, I'll go with first because it's the easiest, and maybe implement last as an option.
 
-(**) Note that anyway, it can always happend that a push is refused **after** Github-Todos has worked. It should keep track of handled commits so that it does not trigger twice on same commit (in a file within .git directory?).
+(2) Note that anyway, it can always happend that a push is refused **after** Github-Todos has worked. It should keep track of handled commits so that it does not trigger twice on same commit (in a file within .git directory?).
 
 ## Mid-term goal
 
