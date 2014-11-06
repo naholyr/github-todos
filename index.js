@@ -2,6 +2,7 @@ var optimist = require("optimist");
 
 var help = require("./lib/help");
 var commands = require("./lib/commands");
+var checkEnv = require("./lib/check-env");
 
 
 // We need to regenerate optimist options if --help or -h is encountered
@@ -46,8 +47,8 @@ function transformHelpArgs (processArgv) {
   return args;
 }
 
-// processArgv = CLI args === process.argv.slice(2)
-function main (processArgv) {
+// Main execution, after env has been checked
+function _main (processArgv) {
 
   // CLI input
   var opts = getOpts(processArgv);
@@ -89,6 +90,21 @@ function main (processArgv) {
   commands.run(command, opts, function (e) {
     console.error(e.message);
     process.exit(1);
+  });
+}
+
+// Main execution
+// processArgv = CLI args === process.argv.slice(2)
+function main (processArgv) {
+  // Check env then execute
+  checkEnv(function (err) {
+    if (err) {
+      console.error("Error found in your current environment:");
+      console.error(err.message);
+      process.exit(2);
+    }
+
+    _main(processArgv);
   });
 }
 
