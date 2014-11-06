@@ -1,6 +1,7 @@
 var optimist = require("optimist");
 
 var help = require("./lib/help");
+var commands = require("./lib/commands");
 
 
 // We need to regenerate optimist options if --help or -h is encountered
@@ -45,29 +46,6 @@ function transformHelpArgs (processArgv) {
   return args;
 }
 
-// Safe-require command module
-function loadCommand (commandName) {
-  var command;
-
-  try {
-    command = require("./lib/cli/" + commandName);
-  } catch (e) {
-    command = null;
-  }
-
-  return command;
-}
-
-// Safe-fun command
-function runCommand (command, opts, onError) {
-  require("domain").create().on("error", onError).run(function () {
-    if (command.config) {
-      opts = command.config(opts);
-    }
-    command.run(opts.argv, opts);
-  });
-}
-
 // processArgv = CLI args === process.argv.slice(2)
 function main (processArgv) {
 
@@ -98,7 +76,7 @@ function main (processArgv) {
   }
 
   // Load command module
-  var command = loadCommand(commandName);
+  var command = commands.load(commandName);
 
   // Demand valid command
   if (!command) {
@@ -108,7 +86,7 @@ function main (processArgv) {
   }
 
   // Configure opts and run command (inside a domain to catch any error)
-  runCommand(command, opts, function (e) {
+  commands.run(command, opts, function (e) {
     console.error(e.message);
     process.exit(1);
   });
