@@ -14,6 +14,7 @@
     "github-todos": "bin/github-todos",
     "ght": "bin/github-todos"
   },
+  "preferGlobal": true,
   "author": "Nicolas Chambrier <naholyr@gmail.com>",
   "license": "MIT",
   "bugs": {
