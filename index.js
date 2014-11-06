@@ -5,6 +5,9 @@ var commands = require("./lib/commands");
 var checkEnv = require("./lib/check-env");
 
 
+module.exports = main;
+
+
 // We need to regenerate optimist options if --help or -h is encountered
 function getOpts (processArgv) {
   return optimist(processArgv)
@@ -107,6 +110,3 @@ function main (processArgv) {
     _main(processArgv);
   });
 }
-
-// Expose main API
-module.exports = main;
