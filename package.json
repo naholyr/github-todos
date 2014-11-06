@@ -30,6 +30,7 @@
   "dependencies": {
     "lodash": "^2.4.1",
     "mustache": "^0.8.2",
-    "optimist": "^0.6.1"
+    "optimist": "^0.6.1",
+    "update-notifier": "^0.2.2"
   }
 }

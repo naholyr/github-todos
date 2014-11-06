@@ -5,17 +5,29 @@ var help = require('../lib/help');
 var optimist = require('optimist');
 var processArgv = process.argv.slice(2);
 
-// We need to regenerate
+// We need to regenerate optimist options if --help or -h is encountered
 function getOpts (processArgv) {
   return optimist(processArgv)
     .usage(help())
     .boolean('h')
     .describe('h', 'Show help')
-    .alias('h', 'help');
+    .alias('h', 'help')
+    .boolean('no-notifier')
+    .describe('no-notifier', 'Disable update notifier')
 }
 
+// CLI input
 var opts = getOpts(processArgv);
 var argv = opts.argv;
+
+// Update notifier
+if (!argv['no-notifier']) {
+  var pkg = require("../package.json");
+  require("update-notifier")({
+    packageName:    pkg.name,
+    packageVersion: pkg.version
+  }).notify();
+}
 
 // Convert options "--help" and "-h" into command "help"
 if (argv.help) {

@@ -6,6 +6,10 @@ Git hook to convert your TODOs into Github issues
 
 The tool is a work in progress, pushed here more for backup purpose than publishing. Please clone or fork only if you intend to contribute.
 
+### Dependencies
+
+* Update notification is based on `update-notifier` [you can disable it](https://github.com/yeoman/update-notifier#user-settings) using CLI argument, file configuration, or environment variable
+
 ### How I think it should work under the hood
 
 All that follows may be highly arguable and I expect comments to make the right tool:
