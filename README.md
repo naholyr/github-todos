@@ -8,7 +8,8 @@ The tool is a work in progress, pushed here more for backup purpose than publish
 
 ### Dependencies
 
-* Update notification is based on `update-notifier` [you can disable it](https://github.com/yeoman/update-notifier#user-settings) using CLI argument, file configuration, or environment variable
+* Update notification is based on `update-notifier` module. [You can disable it](https://github.com/yeoman/update-notifier#user-settings) using CLI argument, file configuration, or environment variable.
+* Debug output is triggered thanks to `debug` module. You can enable it by setting environment variable `DEBUG=github-todos`.
 
 ### How I think it should work under the hood
 
