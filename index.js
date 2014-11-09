@@ -7,6 +7,7 @@ var optimist = require("optimist");
 var help = require("./lib/help");
 var commands = require("./lib/commands");
 var checkEnv = require("./lib/check-env");
+var config = require("./lib/config");
 
 
 module.exports = safeMain;
@@ -55,7 +56,7 @@ function transformHelpArgs (processArgv) {
 }
 
 // Main execution, after env has been checked
-function main (processArgv) {
+function main (processArgv, conf) {
 
   // CLI input
   var opts = getOpts(processArgv);
@@ -94,7 +95,7 @@ function main (processArgv) {
   }
 
   // Configure opts and run command (inside a domain to catch any error)
-  commands.run(command, opts, function (e) {
+  commands.run(command, opts, conf, function (e) {
     console.error(e.message);
     process.exit(1);
   });
@@ -111,6 +112,12 @@ function safeMain (processArgv) {
       process.exit(2);
     }
 
-    main(processArgv);
+    config.list(function (err, conf) {
+      if (err) {
+        conf = {};
+      }
+
+      main(processArgv, conf);
+    });
   });
 }
