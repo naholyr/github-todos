@@ -1,0 +1,9 @@
+{
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "no-use-before-define": 0,
+    "key-spacing": 0
+  }
+}

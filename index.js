@@ -1,3 +1,7 @@
+"use strict";
+
+/* eslint no-process-exit:0 */
+
 var optimist = require("optimist");
 
 var help = require("./lib/help");
@@ -5,7 +9,7 @@ var commands = require("./lib/commands");
 var checkEnv = require("./lib/check-env");
 
 
-module.exports = main;
+module.exports = safeMain;
 
 
 // We need to regenerate optimist options if --help or -h is encountered
@@ -13,12 +17,12 @@ function getOpts (processArgv) {
   return optimist(processArgv)
     .usage(help())
     // Help options (converted to help command)
-    .boolean('h')
-    .describe('h', 'Show help')
-    .alias('h', 'help')
+    .boolean("h")
+    .describe("h", "Show help")
+    .alias("h", "help")
     // Update notification control
-    .boolean('no-notifier')
-    .describe('no-notifier', 'Disable update notifier')
+    .boolean("no-notifier")
+    .describe("no-notifier", "Disable update notifier");
 }
 
 // Check for package update
@@ -51,14 +55,14 @@ function transformHelpArgs (processArgv) {
 }
 
 // Main execution, after env has been checked
-function _main (processArgv) {
+function main (processArgv) {
 
   // CLI input
   var opts = getOpts(processArgv);
   var argv = opts.argv;
 
   // Update notifier
-  if (!argv['no-notifier']) {
+  if (!argv["no-notifier"]) {
     checkUpdate();
   }
 
@@ -98,7 +102,7 @@ function _main (processArgv) {
 
 // Main execution
 // processArgv = CLI args === process.argv.slice(2)
-function main (processArgv) {
+function safeMain (processArgv) {
   // Check env then execute
   checkEnv(function (err) {
     if (err) {
@@ -107,6 +111,6 @@ function main (processArgv) {
       process.exit(2);
     }
 
-    _main(processArgv);
+    main(processArgv);
   });
 }
