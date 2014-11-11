@@ -2,14 +2,6 @@
 
 Github-Todos is a git hook to convert your TODOs into Github issues.
 
-## Still a WIP
-
-The tool is not usable yet, very important features are missing:
-
-* Detect (or ask for) Github repository of the project
-* Ask user before creating issue (or very smart detection of false-positives?)
-* Configuration options to not trigger the hook on every branch or files
-
 ## Basic usage
 
 * Install hook on your repository
@@ -63,7 +55,41 @@ github-todos auth
 
 ## Configuration
 
-TODO detailed configuration
+There seems to be a lot of options, but as this tool can have critical impact on your project (creating dumb issues, causing conflicts on workspace…) it's important for it to have conservative defaults, and for you to understand these options.
+
+Use `github-todos help config` for more details. Here is a short-list of most probably useful options:
+
+* Repository configuration:
+  * `repo` [] is the repository to create issues on (format: "user/repository")
+  * `branches` [master,develop] are the branches on which the hook will be enabled
+  * `remotes` [origin] are the remotes on which the hook will be enabled (advice: setting more than one will cause duplicate issues when you will push the same commits to different enabled remotes)
+* Detection:
+  * `label.<MARKER>` enables a marker (default are "TODO" and "FIXME") and associates a Github label to it
+  * `label-whitespace` [true] forces a whitespace to be found next to marker to trigger hook
+  * `case-sensitive` [false] forces case sensitivity
+* Others:
+  * `inject-issue` [false] hook will modify your files (and commit changes, after push) to add issue number next to TODOs
+  * `confirm-create` [true] hook will ask for user confirmation before opening any new issue (not for comments)
+  * `context` [3] is the number of line you want to include in your issue or comment body
+
+### `.github-todos-ignore`
+
+This file will contain all TODOs you wish to automatically ignore (false positives, issues that should not be created on purpose…).
+
+For example, if your `.github-todos-ignore` file is as follows:
+
+```
+write something useful
+```
+
+and you're about to commit the following TODOs
+
+```diff
++ TODO write something useful
++ TODO write something useful please
+```
+
+then the first one will be simply ignored.
 
 ## Full presentation
 
