@@ -11,7 +11,8 @@ Local options (repository-wide, higher priority, use --global to use global scop
   signature         Signature automatically added to issues and comments (default: link to project)
   case-sensitive    Respect case in marker detection (default: true)
   label-whitespace  Ignore markers not followed by a whitespace (default: true)
-  label.<MARKER>    Label to be added to issues triggered by <MARKER> (default: label.TODO = TODO, label.FIXME = TODO)
+  label.<MARKER>    Label to be added to issues triggered by <MARKER> (default: label.TODO = TODO, label.FIXME = TODO, empty = disable trigger)
+
 
 Global options (use --local to override locally to repository):
   github.token:     Github oauth token for Github-Todos
