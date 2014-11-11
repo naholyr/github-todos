@@ -4,8 +4,7 @@ It's essentialy a wrapper around "git config --local", using section "github-tod
 Usage: $0 config [name] [value] [options]
 
 Local options (repository-wide, higher priority, use --global to use global scope):
-  user              Github username (default: extracted from origin)
-  repo              Github repository (default: extracted from origin)
+  repo              Github repository (format: "user/repository", default: extracted from origin)
   inject-issue      Inject issue number in TODO comments (default: false)
   context           Number of lines to include in code extract (default: 3, 0 to disable)
   signature         Signature automatically added to issues and comments (default: link to project)
