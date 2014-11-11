@@ -3,7 +3,7 @@ It's essentialy a wrapper around "git config --local", using section "github-tod
 
 Usage: $0 config [name] [value] [options]
 
-Names:
+Local options (repository):
   inject-issue      Inject issue number in TODO comments (default: false)
   user              Github username (default: extracted from origin)
   repo              Github repository (default: extracted from origin)
@@ -12,3 +12,9 @@ Names:
   case-sensitive    Respect case in marker detection (default: true)
   label-whitespace  Ignore markers not followed by a whitespace
   label.<MARKER>    Label to be added to issues triggered by <MARKER> (default: label.TODO = TODO, label.FIXME = TODO)
+
+Global options:
+  github.token:     Github oauth token for Github-Todos
+  github.host:      Github API host (default: api.github.com)
+  github.secure:    Use HTTPS? (default: true)
+  github.version:   Github API version (default: 3.0.0)

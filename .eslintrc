@@ -4,6 +4,8 @@
   },
   "rules": {
     "no-use-before-define": 0,
-    "key-spacing": 0
+    // Please let me align my JSON
+    "key-spacing": 0,
+    "no-multi-spaces": 0
   }
 }
