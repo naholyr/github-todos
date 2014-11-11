@@ -6,3 +6,4 @@ Commands:
   config  show configuration
   help    show command's help
   init    initialize git hook in current repository
+  auth    authenticate to Github API
