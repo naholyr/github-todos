@@ -6,6 +6,7 @@ Usage: $0 config [name] [value] [options]
 Local options (repository-wide, higher priority, use --global to use global scope):
   repo              Github repository (format: "user/repository", default: extracted from origin)
   inject-issue      Inject issue number in TODO comments (default: false)
+  confirm-create    Always ask for confirmation before opening new issue (default: true)
   context           Number of lines to include in code extract (default: 3, 0 to disable)
   signature         Signature automatically added to issues and comments (default: link to project)
   case-sensitive    Respect case in marker detection (default: true)
