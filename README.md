@@ -1,86 +1,145 @@
 # github-todos
 
-Git hook to convert your TODOs into Github issues
+Github-Todos is a git hook to convert your TODOs into Github issues.
 
-## WIP
+## Still a WIP
 
-The tool is a work in progress, pushed here more for backup purpose than publishing. Please clone or fork only if you intend to contribute.
+The tool is not usable yet, very important features are missing:
 
-### Dependencies
+* Detect (or ask for) Github repository of the project
+* Ask user before creating issue (or very smart detection of false-positives?)
+* Configuration options to not trigger the hook on every branch or files
 
-* Update notification is based on `update-notifier` module. [You can disable it](https://github.com/yeoman/update-notifier#user-settings) using CLI argument, file configuration, or environment variable.
-* Debug output is triggered thanks to `debug` module. You can enable it by setting environment variable `DEBUG=github-todos`.
+## Basic usage
 
-### How I think it should work under the hood
+* Install hook on your repository
 
-All that follows may be highly arguable and I expect comments to make the right tool:
+```sh
+github-todos init
+```
 
-* **Detect TODOs** should be very simple stupid: any line containing "TODO …" will consider "…" matches a TODO issue
-* It should be a **pre-push hook** because it requires connection, and may modify source files
-  1. Get the overall diff to be commited
-  2. Detect TODOs added in this commits
-  3. (maybe also detect TODOs removed, to close corresponding issues)
-  4. Create or comment issues accordingly
-* **Inject issue number** next to TODO should be optional, and contained into one single isolated commit:
+* Check and maybe tweak configuration
+
+```sh
+github-todos config --defaults
+
+# want to enable issue injection?
+github-todos config inject-issue true
+
+# check configuration help
+github-todos help config
+```
+
+* Work, commit, push
+
+```
+[Github-Todos] Checking Github Authentication… OK
+[Github-Todos] Created issue #11 (do something better) - https://github.com/user/repo/issues/11
+[Github-Todos] Created issue #12 (add security filter) - https://github.com/user/repo/issues/12
+[Github-Todos] Added comment to issue #12 (add security filter) - https://github.com/user/repo/issues/11/#…
+[Github-Todos] Injecting issue numbers to files…
+[Github-Todos] Added a commit containing issue injections
+```
+
+### Dry run
+
+Set environment variable `DRY_RUN` to enable dry run: in this mode no call to Github API will occur, and issues will not be injected even if `inject-issue` option is enabled.
+
+### Debugging
+
+Github-Todos uses `debug` module. You can enable additional verbose output by setting environment variable `DEBUG` to `github-todos`.
+
+## Install
+
+```sh
+npm install -g github-todos
+```
+
+### Authenticate to Github
+
+```sh
+github-todos auth
+```
+
+## Configuration
+
+TODO detailed configuration
+
+## Full presentation
+
+### What it is, what it isn't
+
+This tool is a command line interface to help you install and configure a hook to your git repository. This hook will automaticall create issues or comment existing ones when it finds a new "TODO" in committed files.
+
+It's not a GitHub issue manager, you can take a look at [gh](http://nodegh.io) or [ghi](https://github.com/stephencelis/ghi) for this.
+
+### Why it exists
+
+While coding I often encounter little details that could be improved, little issues that could be fixed but do not match my current goal and are not urgent… In those cases I generally end up adding a little `TODO we should definitely improve this`. I don't get disturbed and let the little things aside, focusing on the main goal.
+
+But those `TODO`s are then usually lost in code, and take a thousand years to be fixed, never raise any discussion. It's hardly better than doing nothing at all. That's why I thought about a tool that would automatically create an issue for each TODO.
+
+### Who can use it
+
+Any Github user can use it:
+
+* it only requires the permission to create issue on repository
+* it's language agnostic, just detecting word `TODO`, in comment or anywhere else
+
+### When you can use it
+
+* On any existing repository you run `github-todos init` to install hook, a bunch of `github-todos config` calls to tweak behavior, it will then run when you push your contributions
+* You can also use it on an existing codebase, to convert those already lost TODOs into issues. This is a very specific usage that you should first simulate:
+
+```sh
+# Simulation
+DRY_RUN=1 github-todos _hook --remote origin --range firstCommit..lastCommit
+
+# Looks OK, let's run the real thing
+github-todos _hook --remote origin --range firstCommit..lastCommit
+```
+
+### How it works under the hood
+
+#### The hook itself
+
+* TODOs detection is very simple stupid: any new line matching "TODO …" causes an issue to be created or commented
+  * If the lines matches "TODO #<number> …" then it will comment the corresponding issue
+  * If multiple TODOs with the same text are found, only one issue will be open
+  * Optionally it will modify any "TODO …" into "TODO #<number> …" after creating or commenting issue, all modifications being isolated in a
+    * stash if workspace is dirty
+    * modify source files
+    * add, commit
+    * stash pop if necessary
+* The hook is triggered on *pre-push*
+  * As it's an operation requiring network (Github API) it should be linked to push
+  * It sounds dumb to create issue for unpublished code
+
+##### Issue injection
+
   1. `git stash save --include-untracked` if workspace is dirty
   2. modify source files: `TODO …` → `TODO #X …`
   3. `git add .`
   4. `git commit -m "[Github-Todos] Inject issue numbers"` (1)
   5. `git stash pop --index` if stashed on step 1
   6. Ready to let the push go (1)
-* **Configuration option** should allow to:
-  * Define target github repository (`user`, `repo`, default taken from remote "origin")
-  * Enable/disable issue injection (`inject-issue`, should be disabled by default?)
-  * Limit parsed files
-    * Using extension? maybe `extensions`, default to "html,js,sh,css,c,o,md", maybe "*"?
-    * Maybe an option to exclude paths, supporting the "**/…" usual pattern?
-  * Be more or less verbose (`verbose`, enabled by default)
-  * Maybe enable interactive mode where the tool would ask confirmation for every TODO before touching online issues (`interactive`, disabled by default?)
 
-(1) Note that you [can't add a commit to a push in a hook](http://stackoverflow.com/a/21334985), we must choose an option:
 
-* let push continue, let user with an unpushed extra commit: not very nice but easy, works, and the user can choose what to do with this extra commit (amend it, remove it, whatever), it will have no more side-effect
-* break push, let user push the whole lot + extra commit: even more user-unfriendly in my opinion, and we'll have to handle the "push again" logic (2)
-* push within the hook (prevent circular execution)
+#### The configuration layer
 
-First and last solutions seem the best in our case, I'll go with first because it's the easiest, and maybe implement last as an option.
+Github-Todos simply uses `git config` to manage its configuration. All options are prefixed with `github-todos.`.
 
-(2) Note that anyway, it can always happend that a push is refused **after** Github-Todos has worked. It should keep track of handled commits so that it does not trigger twice on same commit (in a file within .git directory?).
+* `github-todos config` will grep `git config` for `github-todos.…` options
+* `github-todos config option` will call `git config --local github-todos.option` or `git config --global github-todos.option` depending on option
+* etc.
 
-## Mid-term goal
+#### Installing the hook
 
-```sh
-# Install git hook
-$ ght init
-[Github-Todos] Git hook installed successfully.
+* If no `pre-push` hook exists it creates the file with the simple `github-todos _hook` command
+* If a `pre-push` hook exists, Github-Todos will grep it for the expected command
+  * If found, do nothing
+  * If not found, add it on top
 
-# Set option (inject-issue = modify code after commit to inject issue number in TODO comment)
-$ ght config inject-issue true
+As soon as you don't manually edit the Github-Todos hook command in `pre-push` file, `github-todos init` can install/uninstall hook painlessly.
 
-# Here is line 15 of my demo file
-$ head -n 15 lib/app.js | tail -n 1
-// TODO do not use this deprecated method
-
-# Now I commit with some TODOs added in app.js
-# An issue will be created, the other one commented…
-$ git commit -m "Added some TODOs"
-[Github-Todos] lib/app.js:37 "TODO do not use this deprecated method"
-[Github-Todos] Issue not found, creating new one…
-[Github-Todos] Issue created: #42
-[Github-Todos] lib/app.js:49 "TODO security filter"
-[Github-Todos] Issue found: #37. Adding comment…
-[Github-Todos] Issue commented: #37
-
-# …and because I enabled inject-issue, app.js is left modified
-# notice the "#42" added next to "TODO"
-$ head -n 15 lib/app.js | tail -n 1
-// TODO #42 do not use this deprecated method
-```
-
-## Roadmap
-
-1. Minimum viable product: create or comment issue when a line containing "TODO …" is added to commited file
-2. Guess github user & repository from remote origin
-3. Implement option "inject-issue"
-4. (maybe?) close issue when a line containing "TODO #…" is removed from commited file
-5. (maybe?) add a command to execute hook on a given series of commit (to create your issues on existing codebase)
+If you have any doubt, you should manually insert the command (read `doc/hooks/command.txt` to get it).

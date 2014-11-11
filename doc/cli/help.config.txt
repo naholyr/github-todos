@@ -10,7 +10,7 @@ Local options (repository):
   context           Number of lines to include in code extract (default: 3, 0 to disable)
   signature         Signature automatically added to issues and comments (default: link to project)
   case-sensitive    Respect case in marker detection (default: true)
-  label-whitespace  Ignore markers not followed by a whitespace
+  label-whitespace  Ignore markers not followed by a whitespace (default: true)
   label.<MARKER>    Label to be added to issues triggered by <MARKER> (default: label.TODO = TODO, label.FIXME = TODO)
 
 Global options:
