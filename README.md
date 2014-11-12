@@ -99,7 +99,7 @@ then the first one will be simply ignored.
 
 ### What it is, what it isn't
 
-This tool is a command line interface to help you install and configure a hook to your git repository. This hook will automaticall create issues or comment existing ones when it finds a new "TODO" in committed files.
+This tool is a command line interface to help you install and configure a hook to your git repository. This hook will automatically create issues or comment existing ones when it finds a new "TODO" in committed files.
 
 It's not a GitHub issue manager, you can take a look at [gh](http://nodegh.io) or [ghi](https://github.com/stephencelis/ghi) for this.
 
@@ -159,7 +159,7 @@ github-todos _hook --remote origin --range firstCommit..lastCommit
 
 Configuration is store in `.github-todos` file, using INI format.
 
-* `$HOME/.github-todos` contains global configuration, overriden by…
+* `$HOME/.github-todos` contains global configuration, overridden by…
 * `<YOUR-REPO>/.github-todos` which contains local (repository-wide) configuration
 
 #### Installing the hook

@@ -1,5 +1,5 @@
 Show or edit configuration options for github-todos hook in current git repository.
-It's essentialy a wrapper around "git config --local", using section "github-todos".
+It's essentially a wrapper around "git config --local", using section "github-todos".
 
 Usage: $0 config [name] [value] [options]
 
