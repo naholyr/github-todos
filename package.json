@@ -1,6 +1,6 @@
 {
   "name": "github-todos",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Git hook to convert your TODOs into Github issues",
   "main": "index.js",
   "scripts": {
