@@ -33,11 +33,17 @@ github-todos help config
 [Github-Todos] Added a commit containing issue injections
 ```
 
-### Dry run
+### Disabling hook
 
 Set environment variable `DRY_RUN` to enable dry run: in this mode no call to Github API will occur, and issues will not be injected even if `inject-issue` option is enabled.
 
-If you have some very dirty work to do, like a `push --force` and don't want `github-todos` to interfere, set `$NO_GITHUB_TODOS`. It will not even start.
+If you have some very dirty work to do, like a `push --force` and don't want `github-todos` to interfere, set environment variable `NO_GITHUB_TODOS`. It will not even start.
+
+If you want to uninstall hook for current repository:
+
+```sh
+github-todos init --no-connect --uninstall
+```
 
 ### Debugging
 
