@@ -156,11 +156,10 @@ github-todos _hook --remote origin --range firstCommit..lastCommit
 
 #### The configuration layer
 
-Github-Todos simply uses `git config` to manage its configuration. All options are prefixed with `github-todos.`.
+Configuration is store in `.github-todos` file, using INI format.
 
-* `github-todos config` will grep `git config` for `github-todos.…` options
-* `github-todos config option` will call `git config --local github-todos.option` or `git config --global github-todos.option` depending on option
-* etc.
+* `$HOME/.github-todos` contains global configuration, overriden by…
+* `<YOUR-REPO>/.github-todos` which contains local (repository-wide) configuration
 
 #### Installing the hook
 
