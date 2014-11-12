@@ -12,8 +12,9 @@ Local options (repository-wide, higher priority, use --global to use global scop
   case-sensitive    Respect case in marker detection (default: true)
   label-whitespace  Ignore markers not followed by a whitespace (default: true)
   label.<MARKER>    Label to be added to issues triggered by <MARKER> (default: label.TODO = TODO, label.FIXME = TODO, empty = disable trigger)
-  branches          Comma-separated list of branches for which hook is enabled (default: "master,develop", set to "ALL" to enable on all branches, supports '*' wildcard)
-  remotes           Comma-separated list of remotes for which hook is enabled (default: "origin", set to "ALL" to enable on all remotes, supports '*' wildcard)
+  branches          Comma-separated list of branches for which hook is enabled (default: "master,develop", supports wildcards)
+  remotes           Comma-separated list of remotes for which hook is enabled (default: "origin", supports wildcards)
+  files             Comma-separated list of filenames for which hook is enabled (default: "**", supports wildcards)
 
 Global options (use --local to override locally to repository):
   github.token:     Github oauth token for Github-Todos

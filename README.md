@@ -63,6 +63,7 @@ Use `github-todos help config` for more details. Here is a short-list of most pr
   * `repo` [] is the repository to create issues on (format: "user/repository")
   * `branches` [master,develop] are the branches on which the hook will be enabled
   * `remotes` [origin] are the remotes on which the hook will be enabled (advice: setting more than one will cause duplicate issues when you will push the same commits to different enabled remotes)
+  * `files` [*.*] are the files on which the hook will be enabled
 * Detection:
   * `label.<MARKER>` enables a marker (default are "TODO" and "FIXME") and associates a Github label to it
   * `label-whitespace` [true] forces a whitespace to be found next to marker to trigger hook
