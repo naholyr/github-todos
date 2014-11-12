@@ -1,0 +1,8 @@
+write something useful
+write something useful please
+we should definitely improve this`. I don't get disturbed and let the little things aside, focusing on the main goal.
+…" causes an issue to be created or commented
+#<number> …" then it will comment the corresponding issue
+…" into "TODO #<number> …" after creating or commenting issue, all modifications being isolated in a
+comments (default: false)
+= TODO, label.FIXME = TODO, empty = disable trigger)
