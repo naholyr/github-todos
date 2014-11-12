@@ -4,7 +4,8 @@ It's essentialy a wrapper around "git config --local", using section "github-tod
 Usage: $0 config [name] [value] [options]
 
 Local options (repository-wide, higher priority, use --global to use global scope):
-  repo              Github repository (format: "user/repository", default: extracted from origin)
+  service           Issue service (default: "github")
+  repo              Repository identifier (format depends on issue service, default: extracted from origin)
   inject-issue      Inject issue number in TODO comments (default: false)
   context           Number of lines to include in code extract (default: 3, 0 to disable)
   signature         Signature automatically added to issues and comments (default: link to project)
@@ -18,7 +19,8 @@ Local options (repository-wide, higher priority, use --global to use global scop
 Global options (use --local to override locally to repository):
   confirm-create    Always ask for confirmation before opening new issue (default: true)
   open-url          Open created issues and comments in your main browser (default: false)
-  github.token:     Github oauth token for Github-Todos
-  github.host:      Github API host (default: api.github.com)
-  github.secure:    Use HTTPS? (default: true)
-  github.version:   Github API version (default: 3.0.0)
+  Github related:
+    github.token    Github oauth token for Github-Todos
+    github.host     Github API host (default: api.github.com)
+    github.secure   Use HTTPS? (default: true)
+    github.version  Github API version (default: 3.0.0)

@@ -63,6 +63,7 @@ Use `github-todos help config` for more details (including formats). Here is a s
 
 * Repository configuration:
   * `repo` is the repository to create issues on (format: "user/repository", default: guessed from remote origin)
+  * `service` is the issue service (default: "github", available: "github")
   * `branches` are the branches on which the hook will be enabled (default: `master,develop`)
   * `remotes` are the remotes on which the hook will be enabled (advice: setting more than one will cause duplicate issues when you will push the same commits to different enabled remotes, default: `origin`)
   * `files` are the files on which the hook will be enabled (default: `**`)
