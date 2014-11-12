@@ -107,6 +107,12 @@ function main (processArgv, conf) {
 // Main execution
 // processArgv = CLI args === process.argv.slice(2)
 function safeMain (processArgv) {
+  if (process.env.NO_GITHUB_TODOS) {
+    console.log("[Github-Todos] Disabled from environment");
+    process.exit(0);
+    return;
+  }
+
   // Check env then execute
   checkEnv(function (err) {
     if (err) {

@@ -37,6 +37,8 @@ github-todos help config
 
 Set environment variable `DRY_RUN` to enable dry run: in this mode no call to Github API will occur, and issues will not be injected even if `inject-issue` option is enabled.
 
+If you have some very dirty work to do, like a `push --force` and don't want `github-todos` to interfere, set `$NO_GITHUB_TODOS`. It will not even start.
+
 ### Debugging
 
 Github-Todos uses `debug` module. You can enable additional verbose output by setting environment variable `DEBUG` to `github-todos`.
