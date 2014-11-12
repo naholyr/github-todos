@@ -4,7 +4,7 @@ It's essentialy a wrapper around "git config --local", using section "github-tod
 Usage: $0 config [name] [value] [options]
 
 Local options (repository-wide, higher priority, use --global to use global scope):
-  service           Issue service (default: "github")
+  service           Issue service (default: "github", use command "list-services" for more information)
   repo              Repository identifier (format depends on issue service, default: extracted from origin)
   inject-issue      Inject issue number in TODO comments (default: false)
   context           Number of lines to include in code extract (default: 3, 0 to disable)
