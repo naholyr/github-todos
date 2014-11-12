@@ -75,7 +75,7 @@ Use `github-todos help config` for more details. Here is a short-list of most pr
   * `confirm-create` [true] hook will ask for user confirmation before opening any new issue (not for comments)
   * `context` [3] is the number of line you want to include in your issue or comment body
 
-### `.github-todos-ignore`
+### .github-todos-ignore
 
 This file will contain all TODOs you wish to automatically ignore (false positives, issues that should not be created on purpose…).
 
