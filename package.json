@@ -38,6 +38,7 @@
     "lodash": "^2.4.1",
     "minimatch": "^1.0.0",
     "mustache": "^0.8.2",
+    "open": "0.0.5",
     "optimist": "^0.6.1",
     "update-notifier": "^0.2.2",
     "which": "^1.0.5"

@@ -17,6 +17,7 @@ Local options (repository-wide, higher priority, use --global to use global scop
   files             Comma-separated list of filenames for which hook is enabled (default: "**", supports wildcards)
 
 Global options (use --local to override locally to repository):
+  open-url          Open created issues and comments in your main browser (default: false)
   github.token:     Github oauth token for Github-Todos
   github.host:      Github API host (default: api.github.com)
   github.secure:    Use HTTPS? (default: true)

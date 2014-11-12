@@ -73,6 +73,7 @@ Use `github-todos help config` for more details. Here is a short-list of most pr
 * Others:
   * `inject-issue` [false] hook will modify your files (and commit changes, after push) to add issue number next to TODOs
   * `confirm-create` [true] hook will ask for user confirmation before opening any new issue (not for comments)
+  * `open-url` [false] will open issues and comments in your main browser
   * `context` [3] is the number of line you want to include in your issue or comment body
 
 ### .github-todos-ignore
