@@ -97,6 +97,9 @@ function main (processArgv, conf) {
   // Configure opts and run command (inside a domain to catch any error)
   commands.run(command, opts, conf, function (e) {
     console.error(e.message);
+    if (process.env.DEBUG) {
+      throw e;
+    }
     process.exit(1);
   });
 }
@@ -109,6 +112,9 @@ function safeMain (processArgv) {
     if (err) {
       console.error("Error found in your current environment:");
       console.error(err.message);
+      if (process.env.DEBUG) {
+        throw err;
+      }
       process.exit(2);
     }
 
