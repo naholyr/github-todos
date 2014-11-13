@@ -18,8 +18,9 @@ Local options (repository-wide, higher priority, use --global to use global scop
 Global options (use --local to override locally to repository):
   confirm-create    Always ask for confirmation before opening new issue (default: true)
   open-url          Open created issues and comments in your main browser (default: false)
-  Github related:
-    github.token    Github oauth token for Github-Todos
-    github.host     Github API host (default: api.github.com)
-    github.secure   Use HTTPS? (default: true)
-    github.version  Github API version (default: 3.0.0)
+
+Github related options:
+  github.token    (global) OAuth token
+  github.host     (global) API host (default: api.github.com)
+  github.secure   (global) Use HTTPS? (default: true)
+  github.version  (global) Github API version (default: 3.0.0)
