@@ -1,3 +1,8 @@
+[![npm version](https://badge.fury.io/js/github-todos.svg)](http://badge.fury.io/js/github-todos)
+[![Dependency Status](https://david-dm.org/naholyr/github-todos.png)](https://david-dm.org/naholyr/github-todos)
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=naholyr&url=https%3A%2F%2Fgithub.com%2Fnaholyr%2Fgithub-todos&title=Github-Todos&language=javascript&tags=github&category=software)
+[![Gittip donate](https://img.shields.io/gratipay/naholyr.svg)](https://gratipay.com/naholyr)
+
 # github-todos
 
 Github-Todos is a git hook to convert your TODOs into Github issues.
