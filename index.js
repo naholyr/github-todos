@@ -126,6 +126,7 @@ function safeMain (processArgv) {
   // Benchmark
   if (process.env.TIME) {
     var start = Date.now();
+    console.log("[Github-Todos] Start…");
     process.on("exit", function () {
       var diff = Date.now() - start;
       console.log("[Github-Todos] Execution time: %d ms", diff);
