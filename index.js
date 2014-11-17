@@ -3,6 +3,7 @@
 /* eslint no-process-exit:0 */
 
 var optimist = require("optimist");
+var ttys = require("ttys");
 
 var help = require("./lib/help");
 var commands = require("./lib/commands");
@@ -93,6 +94,10 @@ function main (processArgv, conf) {
     opts.showHelp();
     process.exit(127);
   }
+
+  process.on("exit", function () {
+    ttys.stdin.end();
+  });
 
   // Configure opts and run command (inside a domain to catch any error)
   commands.run(command, opts, conf, function (e) {
