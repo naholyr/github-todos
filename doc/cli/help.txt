@@ -1,6 +1,6 @@
-Usage: $0 <command> [options]
+Usage: ght <command> [options]
 
-Help: $0 help <command>
+Help: ght help <command>
 
 Commands:
   config          manage configuration

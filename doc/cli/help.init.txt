@@ -1,3 +1,3 @@
 Install git hooks in current repository.
 
-Usage: $0 init [options]
+Usage: ght init [options]
