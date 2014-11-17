@@ -95,18 +95,20 @@ then the first one will be simply ignored.
 
 ## Advanced usage
 
-### Disabling hook
+### Environment variables
 
-Set environment variable `DRY_RUN` to enable dry run: in this mode no call to Github API will occur, and issues will not be injected even if `inject-issue` option is enabled.
+Some behavior can be altered using environment variables. Why not use CLI arguments? Because you may want to enable those options during a `git push`. For example `DRY_RUN=1 git push` to simulate safely, or `NO_GITHUB_TODOS=1 git push` for faster push.
 
-If you have some very dirty work to do, like a `push --force` and don't want `github-todos` to interfere, set environment variable `NO_GITHUB_TODOS`. It will not even start.
+* set `DRY_RUN=1` to simulate instead of really execute: in this mode no call to Github API will occur, and issues will not be injected even if `inject-issue` option is enabled.
+  * Note that in this mode the git hook will fail, which should abort the git command
+* set `NO_GITHUB_TODOS=1` to entirely disable Github-Todos.
+* set `SHOW_TIME=1` to display the time spent in Github-Todos (if you suspect it dramatically slows down your git push, that can be a good start).
+* set `DEBUG=github-todos` to show verbose internal debugging information.
+
+### Cleanup
 
 If you want to uninstall hook for current repository:
 
 ```sh
 github-todos init --no-connect --uninstall
 ```
-
-### Debugging
-
-Github-Todos uses `debug` module. You can enable additional verbose output by setting environment variable `DEBUG` to `github-todos`.
