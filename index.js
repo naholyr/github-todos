@@ -4,6 +4,7 @@
 
 var optimist = require("optimist");
 var ttys = require("ttys");
+var _ = require("lodash");
 
 var help = require("./lib/help");
 var commands = require("./lib/commands");
@@ -107,11 +108,15 @@ function main (processArgv, conf) {
   }
 
   function fail (e) {
-    console.error(e.message);
-    if (process.env.DEBUG) {
-      throw e;
+    if (e.code === "EINTERRUPT") {
+      process.exit(127);
+    } else {
+      console.error("%s", e);
+      if (process.env.DEBUG) {
+        throw e;
+      }
+      process.exit(1);
     }
-    process.exit(1);
   }
 }
 
@@ -125,22 +130,16 @@ function safeMain (processArgv) {
   }
 
   // Check env then execute
-  checkEnv(function (err) {
-    if (err) {
-      console.error("Error found in your current environment:");
-      console.error(err.message);
+  checkEnv()
+    .then(null, function (err) {
+      console.error("Error found in your current environment: %s", err);
       if (process.env.DEBUG) {
-        throw err;
+        console.error(err.stack);
       }
       process.exit(2);
-    }
-
-    config.list(function (err, conf) {
-      if (err) {
-        conf = {};
-      }
-
-      main(processArgv, conf);
-    });
-  });
+    })
+    .then(function () {
+      return config.list();
+    })
+    .then(_.partial(main, processArgv));
 }
