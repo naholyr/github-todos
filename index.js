@@ -100,13 +100,19 @@ function main (processArgv, conf) {
   });
 
   // Configure opts and run command (inside a domain to catch any error)
-  commands.run(command, opts, conf, function (e) {
+  commands.run(command, opts, conf).then(ok, fail);
+
+  function ok () {
+    process.exit(0);
+  }
+
+  function fail (e) {
     console.error(e.message);
     if (process.env.DEBUG) {
       throw e;
     }
     process.exit(1);
-  });
+  }
 }
 
 // Main execution
