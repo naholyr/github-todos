@@ -123,6 +123,14 @@ function main (processArgv, conf) {
 // Main execution
 // processArgv = CLI args === process.argv.slice(2)
 function safeMain (processArgv) {
+  // Benchmark
+  var start = Date.now();
+  process.on("exit", function () {
+    var diff = Date.now() - start;
+    console.log("[Github-Todos] Execution time: %d ms", diff);
+  });
+
+  // Disabled?
   if (process.env.NO_GITHUB_TODOS) {
     console.log("[Github-Todos] Disabled from environment");
     process.exit(0);
