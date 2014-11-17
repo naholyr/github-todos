@@ -14,6 +14,9 @@ You can read [the full presentation from wiki](https://github.com/naholyr/github
 * Install hook on your repository
 
 ```sh
+# If you're not using Github, set service FIRST
+github-todos config service bitbucket # check out github-todos list-services
+
 github-todos init
 ```
 
