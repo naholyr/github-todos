@@ -19,6 +19,9 @@ module.exports = safeMain;
 function getOpts (processArgv) {
   return optimist(processArgv)
     .usage(help())
+    // Show version
+    .boolean("version")
+    .describe("version", "Show version and exit")
     // Help options (converted to help command)
     .boolean("h")
     .describe("h", "Show help")
@@ -35,6 +38,13 @@ function checkUpdate () {
     packageName:    pkg.name,
     packageVersion: pkg.version
   }).notify();
+}
+
+// Show version and exit
+function showVersion () {
+  var pkg = require("./package.json");
+  console.log(pkg.version);
+  process.exit(0);
 }
 
 // Transform CLI args to convert --help && -h into help command
@@ -75,6 +85,11 @@ function main (processArgv, conf) {
     // Regenerate opts from newly forged process.argv
     opts = getOpts(processArgv);
     argv = opts.argv;
+  }
+
+  // "--version"
+  if (argv.version) {
+    showVersion();
   }
 
   var commandName = argv._[0];
