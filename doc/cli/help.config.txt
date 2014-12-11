@@ -22,5 +22,6 @@ Global options (use --local to override locally to repository):
 Github related options:
   github.token    (global) OAuth token
   github.host     (global) API host (default: api.github.com)
+  github.url      (global) API host (default: empty)
   github.secure   (global) Use HTTPS? (default: true)
   github.version  (global) Github API version (default: 3.0.0)
