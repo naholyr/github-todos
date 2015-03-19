@@ -15,7 +15,6 @@ var _ = require("lodash");
 var ask = require("../ask");
 
 // Configuration layer API, should be useful to automatically save your credentials
-// Remember to enable options in lib/config.js
 var config = require("../config");
 
 
@@ -23,7 +22,8 @@ var config = require("../config");
 module.exports = {
   "meta": {
     "desc": "Sample issue service",
-    "repo": "user/repository"
+    "repo": "user/repository",
+    "conf": ["my-host.token"]
   },
 
   "connect":          connect,
@@ -107,7 +107,6 @@ function guessRepoFromUrl (url) {
   return match && match[1];
 }
 
-// Assuming option "my-host.token" has been enabled in "../config.js"
 // Assuming client.setToken sets authorization token for next calls
 function connect (conf) {
   // Instantiating API client, this is the one that will be passed to other methods
@@ -155,6 +154,7 @@ function createToken (client) {
   });
 }
 
+// Persist credentials to service-specific option
 function saveToken (token) {
   return config.set("my-host.token", token).then(_.constant(token));
 }

@@ -24,3 +24,9 @@ Github related options:
   github.host     (global) API host (default: api.github.com)
   github.secure   (global) Use HTTPS? (default: true)
   github.version  (global) Github API version (default: 3.0.0)
+  Note: Check https://github.com/settings/applications for "Github-Todos" to revoke access
+
+Bitbucket related options:
+  bitbucket.key     (global) OAuth consumer key
+  bitbucket.secret  (global) OAuth consumer secret
+  Note: Check https://bitbucket.org/account/user/naholyr/api for "github-todos" to revoke access
