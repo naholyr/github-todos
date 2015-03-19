@@ -30,3 +30,8 @@ Bitbucket related options:
   bitbucket.key     (global) OAuth consumer key
   bitbucket.secret  (global) OAuth consumer secret
   Note: Check https://bitbucket.org/account/user/naholyr/api for "github-todos" to revoke access
+
+Todo.txt related options:
+  todotxt.context   Add this context to tasks
+  todotxt.project   Add this project to tasks
+  todotxt.priority  Set task priority

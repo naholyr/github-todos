@@ -41,6 +41,7 @@
     "open": "0.0.5",
     "optimist": "^0.6.1",
     "request": "^2.48.0",
+    "todotxt": "^1.1.0",
     "ttys": "0.0.3",
     "update-notifier": "^0.2.2",
     "which": "^1.0.5"
