@@ -9,6 +9,10 @@ Github-Todos is a git hook to convert your TODOs into Github issues.
 
 You can read [the full presentation from wiki](https://github.com/naholyr/github-todos/wiki/Full-presentation) for detailed information.
 
+## Installation
+
+```npm install -g github-todos```
+
 ## Basic usage
 
 * Install hook on your repository
